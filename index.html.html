@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Play Learn HTML Video</title>
+    <style>
+        body {
+            background-color: black;
+            color: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            flex-direction: column;
+        }
+
+        /* Styling for the link to look like a button */
+        a {
+            padding: 15px 30px;
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            background-color: #444;
+            text-decoration: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        a:hover {
+            background-color: #666;
+        }
+
+        video {
+            display: none; /* Initially hide the video */
+            width: 80%;
+            margin-top: 20px;
+            border: 2px solid white;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Link with the text "Pula" to trigger video play -->
+    <a href="index.html?pula" id="playLink">Pula</a>
+
+    <!-- Video element, initially hidden -->
+    <video id="videoPlayer" controls>
+        <source src="1.mp4" type="video/mp4">
+        <p>Your browser does not support HTML5 video.</p>
+    </video>
+
+    <script>
+        // Check if the URL contains "?pula" parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const isPula = urlParams.has('pula');
+
+        // If the URL contains "?pula", automatically show and play the video
+        if (isPula) {
+            const videoPlayer = document.getElementById('videoPlayer');
+            videoPlayer.style.display = 'block';
+            videoPlayer.play().catch(error => {
+                console.error("Error playing the video:", error);
+            });
+        }
+
+        // Get the link and video elements for manual interaction
+        const playLink = document.getElementById('playLink');
+        const videoPlayer = document.getElementById('videoPlayer');
+
+        // Add event listener to play video when the link is clicked
+        playLink.addEventListener('click', function(event) {
+            event.preventDefault(); // Prevent the link from navigating anywhere
+
+            // Show the video when the link is clicked
+            videoPlayer.style.display = 'block';
+
+            // Play the video
+            videoPlayer.play().then(() => {
+                console.log("Video is playing.");
+            }).catch(error => {
+                console.error("Error playing the video:", error);
+                alert("Failed to play the video.");
+            });
+        });
+    </script>
+
+</body>
+</html>
